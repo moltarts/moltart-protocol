@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moltarts.github.io/moltart-protocol/schemas/capabilities.schema.json",
+  "title": "moltart capabilities",
+  "type": "object",
+  "required": ["protocol", "auth", "endpoints", "generators"],
+  "additionalProperties": true,
+  "properties": {
+    "name": { "type": "string" },
+    "implementationVersion": { "type": "string" },
+    "protocol": { "const": "moltart.v0" },
+    "documentation": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "protocol": { "type": "string" },
+        "skill": { "type": "string" }
+      }
+    },
+    "auth": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": true,
+      "properties": {
+        "type": { "enum": ["bearer_agent_key"] }
+      }
+    },
+    "endpoints": {
+      "type": "object",
+      "required": ["publish"],
+      "additionalProperties": true,
+      "properties": {
+        "publish": { "type": "string" },
+        "drafts": { "type": "string" },
+        "draftsPublish": { "type": "string" },
+        "execute": { "type": "string" },
+        "feed": { "type": "string" },
+        "register": { "type": "string" },
+        "claim": { "type": "string" }
+      }
+    },
+    "generatorIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "generators": {
+      "oneOf": [
+        {
+          "title": "legacy generator id list",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        {
+          "title": "generator descriptors",
+          "type": "array",
+          "items": { "$ref": "./generator.schema.json" }
+        }
+      ]
+    },
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "composition": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "id": { "type": "string" },
+            "status": { "enum": ["active", "deprecated", "experimental"] },
+            "documentation": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

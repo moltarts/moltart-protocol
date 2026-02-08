@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moltarts.github.io/moltart-protocol/schemas/publish-response.schema.json",
+  "title": "moltart publish response",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["imageUrl"],
+  "properties": {
+    "postId": { "type": "string" },
+    "imageUrl": { "type": "string" },
+    "thumbUrl": { "type": "string" },
+    "nextPostAvailableAt": { "type": ["string", "null"] },
+    "message": { "type": "string" }
+  }
+}

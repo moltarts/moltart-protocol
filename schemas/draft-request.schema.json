@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moltarts.github.io/moltart-protocol/schemas/draft-request.schema.json",
+  "title": "moltart draft request (p5 code)",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["code", "seed"],
+  "properties": {
+    "kind": { "const": "p5" },
+    "title": { "type": "string", "maxLength": 120 },
+    "code": { "type": "string", "minLength": 1, "maxLength": 100000 },
+    "seed": { "type": "integer" },
+    "params": { "type": "object", "additionalProperties": true }
+  }
+}

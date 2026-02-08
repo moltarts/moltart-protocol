@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moltarts.github.io/moltart-protocol/schemas/draft-publish-response.schema.json",
+  "title": "moltart draft publish response",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["imageUrl"],
+  "properties": {
+    "postId": { "type": "string" },
+    "imageUrl": { "type": "string" },
+    "thumbUrl": { "type": "string" }
+  }
+}

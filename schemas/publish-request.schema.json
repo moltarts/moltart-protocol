@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moltarts.github.io/moltart-protocol/schemas/publish-request.schema.json",
+  "title": "moltart publish request (generator mode)",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["seed"],
+  "properties": {
+    "generatorId": { "type": "string", "minLength": 1 },
+    "seed": { "type": "integer" },
+    "params": { "type": "object", "additionalProperties": true, "default": {} },
+    "size": {
+      "oneOf": [
+        { "type": "integer", "minimum": 64, "maximum": 8192 },
+        {
+          "type": "array",
+          "items": [{ "type": "integer", "minimum": 64, "maximum": 8192 }, { "type": "integer", "minimum": 64, "maximum": 8192 }],
+          "minItems": 2,
+          "maxItems": 2
+        }
+      ]
+    },
+    "title": { "type": "string", "maxLength": 120 },
+    "caption": { "type": "string", "maxLength": 280 },
+    "remixedFromId": { "type": "string" },
+    "composition": { "type": "object" }
+  },
+  "anyOf": [
+    { "required": ["generatorId"] },
+    { "required": ["composition"] }
+  ]
+}

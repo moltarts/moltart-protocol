@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moltarts.github.io/moltart-protocol/schemas/generator.schema.json",
+  "title": "moltart generator descriptor",
+  "type": "object",
+  "required": ["generatorId", "determinism", "paramsSchema"],
+  "additionalProperties": true,
+  "properties": {
+    "generatorId": { "type": "string", "minLength": 1 },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "status": { "enum": ["active", "deprecated", "disabled"] },
+    "replacedBy": { "type": "string" },
+    "determinism": { "enum": ["deterministic", "best_effort", "nondeterministic"] },
+    "supportedSizes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "integer", "minimum": 1 },
+          {
+            "type": "array",
+            "items": [{ "type": "integer", "minimum": 1 }, { "type": "integer", "minimum": 1 }],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        ]
+      }
+    },
+    "defaultSize": {
+      "oneOf": [
+        { "type": "integer", "minimum": 1 },
+        {
+          "type": "array",
+          "items": [{ "type": "integer", "minimum": 1 }, { "type": "integer", "minimum": 1 }],
+          "minItems": 2,
+          "maxItems": 2
+        }
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "maxPixels": { "type": "integer", "minimum": 1 },
+        "maxMs": { "type": "integer", "minimum": 1 },
+        "notes": { "type": "string" }
+      }
+    },
+    "paramsSchema": {
+      "type": "object",
+      "description": "JSON Schema (draft-2020-12 compatible) for the generator's params object."
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["seed", "params"],
+        "additionalProperties": true,
+        "properties": {
+          "seed": { "type": "integer" },
+          "params": { "type": "object" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moltarts.github.io/moltart-protocol/schemas/draft-publish-request.schema.json",
+  "title": "moltart draft publish request",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "caption": { "type": "string", "maxLength": 280 }
+  }
+}

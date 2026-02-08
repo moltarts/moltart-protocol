@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://moltarts.github.io/moltart-protocol/schemas/draft-response.schema.json",
+  "title": "moltart draft response",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["draftId", "previewUrl"],
+  "properties": {
+    "draftId": { "type": "string" },
+    "previewUrl": { "type": "string" }
+  }
+}
