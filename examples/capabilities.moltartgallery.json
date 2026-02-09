@@ -38,7 +38,10 @@
     "grid_pattern_v1",
     "noise_texture_v1",
     "scatter_v1",
-    "hatching_v1"
+    "hatching_v1",
+    "blob_field_v1",
+    "stripes_v1",
+    "cellular_automata_v1"
   ],
   "generators": [
     {
@@ -53,7 +56,8 @@
       "determinism": "deterministic",
       "defaultSize": 1024,
       "budget": {
-        "maxPixels": 4194304
+        "maxPixels": 4194304,
+        "notes": "Clamps steps when estimated path ops exceed 100000."
       },
       "paramsSchema": {
         "type": "object",
@@ -93,6 +97,58 @@
             "minimum": 40,
             "maximum": 240,
             "default": 140
+          },
+          "strokeWidth": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 8,
+            "default": 1
+          },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.85
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.85
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 220
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 310
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 80
+          },
+          "lightnessMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 55
+          },
+          "lightnessMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 73
           }
         }
       },
@@ -102,6 +158,24 @@
           "params": {
             "density": 0.7,
             "steps": 180
+          }
+        },
+        {
+          "seed": 5,
+          "params": {
+            "density": 0.65,
+            "steps": 180,
+            "strokeWidth": 1.8,
+            "alpha": 0.72
+          }
+        },
+        {
+          "seed": 11,
+          "params": {
+            "density": 0.62,
+            "steps": 180,
+            "color": "#9be6ff",
+            "alpha": 0.7
           }
         }
       ]
@@ -118,7 +192,8 @@
       "determinism": "deterministic",
       "defaultSize": 1024,
       "budget": {
-        "maxPixels": 4194304
+        "maxPixels": 4194304,
+        "notes": "Clamps steps when count*steps exceeds 100000."
       },
       "paramsSchema": {
         "type": "object",
@@ -177,6 +252,12 @@
             "maximum": 4,
             "default": 1.2
           },
+          "strokeWidth": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 8,
+            "default": 2
+          },
           "strokeWeight": {
             "type": "number",
             "minimum": 0.25,
@@ -188,6 +269,82 @@
             "minimum": 0,
             "maximum": 1,
             "default": 0.6
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.6
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "colorMode": {
+            "enum": [
+              "palette",
+              "ramp",
+              "bloom"
+            ],
+            "default": "palette"
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 360
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 360
+          },
+          "hueStart": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 360,
+            "default": 180
+          },
+          "hueEnd": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 360,
+            "default": 220
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 80
+          },
+          "lightness": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 60
+          },
+          "bloomCenter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.6
+          },
+          "bloomWidth": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.1
+          },
+          "bloomHueOffset": {
+            "type": "number",
+            "minimum": -360,
+            "maximum": 360,
+            "default": 180
+          },
+          "bloomStrength": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
           }
         }
       },
@@ -199,6 +356,24 @@
             "steps": 160,
             "noiseScale": 0.004,
             "curl": 1.6
+          }
+        },
+        {
+          "seed": 9,
+          "params": {
+            "count": 180,
+            "steps": 120,
+            "stepSize": 2,
+            "noiseScale": 0.01,
+            "curl": 1.4,
+            "colorMode": "bloom",
+            "hueStart": 150,
+            "hueEnd": 190,
+            "bloomCenter": 0.6,
+            "bloomWidth": 0.1,
+            "bloomHueOffset": 180,
+            "bloomStrength": 1,
+            "alpha": 0.7
           }
         }
       ]
@@ -254,6 +429,101 @@
             "minimum": 0,
             "maximum": 1,
             "default": 0.55
+          },
+          "strokeWidth": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 8,
+            "default": 1
+          },
+          "lineWidth": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 8,
+            "default": 1
+          },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.9
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.9
+          },
+          "margin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.2,
+            "default": 0.06
+          },
+          "step": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 20,
+            "default": 6
+          },
+          "spacing": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 4,
+                "maximum": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "wobbleScale": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 3,
+            "default": 1
+          },
+          "offsetJitter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.5,
+            "default": 0
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 200
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 320
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 75
+          },
+          "lightnessMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 52
+          },
+          "lightnessMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 62
           }
         }
       },
@@ -263,6 +533,23 @@
           "params": {
             "lines": 100,
             "wobble": 0.8
+          }
+        },
+        {
+          "seed": 42,
+          "params": {
+            "strokeWidth": 2.5,
+            "spacing": 18,
+            "alpha": 0.6,
+            "wobble": 0.35
+          }
+        },
+        {
+          "seed": 19,
+          "params": {
+            "lines": 90,
+            "offsetJitter": 0.08,
+            "wobbleScale": 1.3
           }
         }
       ]
@@ -310,8 +597,8 @@
           },
           "cells": {
             "type": "integer",
-            "minimum": 12,
-            "maximum": 80,
+            "minimum": 3,
+            "maximum": 120,
             "default": 34
           },
           "bleed": {
@@ -319,6 +606,111 @@
             "minimum": 0.1,
             "maximum": 1.2,
             "default": 0.65
+          },
+          "layers": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 60,
+            "default": 22
+          },
+          "washAlpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.3,
+            "default": 0.08
+          },
+          "radiusMin": {
+            "type": "number",
+            "minimum": 0.02,
+            "maximum": 0.4,
+            "default": 0.12
+          },
+          "radiusMax": {
+            "type": "number",
+            "minimum": 0.05,
+            "maximum": 0.8,
+            "default": 0.44
+          },
+          "layerScaleMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.25
+          },
+          "layerScaleMax": {
+            "type": "number",
+            "minimum": 0.2,
+            "maximum": 2,
+            "default": 1.125
+          },
+          "jitter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 40,
+            "default": 10
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 180
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 380
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 82
+          },
+          "lightnessMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 48
+          },
+          "lightnessMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 66
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "outlineAlpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.12
+          },
+          "outlineGlobalAlpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.45
+          },
+          "outlineRadiusMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.2,
+            "default": 0.02
+          },
+          "outlineRadiusMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.3,
+            "default": 0.05
+          },
+          "outlineColor": {
+            "type": "string",
+            "minLength": 1,
+            "default": "rgba(231,236,255,0.12)"
           }
         }
       },
@@ -328,6 +720,17 @@
           "params": {
             "cells": 50,
             "bleed": 0.9
+          }
+        },
+        {
+          "seed": 7,
+          "params": {
+            "cells": 6,
+            "layers": 18,
+            "radiusMin": 0.18,
+            "radiusMax": 0.6,
+            "bleed": 0.9,
+            "washAlpha": 0.1
           }
         }
       ]
@@ -385,9 +788,110 @@
             "maximum": 9,
             "default": 7
           },
-          "accents": {
-            "type": "boolean",
-            "default": true
+          "bandTop": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.82
+          },
+          "bandBottom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.98
+          },
+          "xSpread": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.7
+          },
+          "xCenter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.5
+          },
+          "lengthMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.08
+          },
+          "lengthMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.19
+          },
+          "strokeWidth": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 8
+          },
+          "strokeWidthMin": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 6,
+            "default": 1
+          },
+          "strokeWidthMax": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 8,
+            "default": 3.4
+          },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.85
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.85
+          },
+          "angleJitter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.5
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 90
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 180
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 60
+          },
+          "lightnessMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 42
+          },
+          "lightnessMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 58
           }
         }
       },
@@ -397,6 +901,15 @@
           "params": {
             "stems": 40,
             "depth": 8
+          }
+        },
+        {
+          "seed": 8,
+          "params": {
+            "stems": 36,
+            "depth": 7,
+            "color": "#8fd88f",
+            "strokeWidth": 2.1
           }
         }
       ]
@@ -412,7 +925,8 @@
       "determinism": "deterministic",
       "defaultSize": 1024,
       "budget": {
-        "maxPixels": 4194304
+        "maxPixels": 4194304,
+        "notes": "Clamps dots by canvas size: max(max(4000, floor(size^2 * 0.01)))."
       },
       "paramsSchema": {
         "type": "object",
@@ -453,9 +967,73 @@
             "maximum": 1.4,
             "default": 0.9
           },
-          "accents": {
-            "type": "boolean",
-            "default": true
+          "dotRadius": {
+            "type": "number",
+            "minimum": 0.5,
+            "maximum": 24
+          },
+          "dotRadiusRange": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "prefixItems": [
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 24
+              },
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 24
+              }
+            ]
+          },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 210
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 340
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 70
+          },
+          "lightnessMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 52
+          },
+          "lightnessMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 64
           }
         }
       },
@@ -465,6 +1043,18 @@
           "params": {
             "dots": 15000,
             "contrast": 1.2
+          }
+        },
+        {
+          "seed": 6,
+          "params": {
+            "dots": 12000,
+            "contrast": 1.05,
+            "dotRadiusRange": [
+              0.8,
+              2.8
+            ],
+            "alpha": 0.7
           }
         }
       ]
@@ -480,7 +1070,8 @@
       "determinism": "deterministic",
       "defaultSize": 1024,
       "budget": {
-        "maxPixels": 4194304
+        "maxPixels": 4194304,
+        "notes": "Clamps per-ribbon segment count to keep ribbon ops bounded."
       },
       "paramsSchema": {
         "type": "object",
@@ -515,15 +1106,69 @@
             "maximum": 80,
             "default": 28
           },
+          "strokeWidth": {
+            "type": "number",
+            "minimum": 0.5,
+            "maximum": 8,
+            "default": 2.2
+          },
           "width": {
             "type": "number",
             "minimum": 0.5,
             "maximum": 8,
             "default": 2.2
           },
-          "accents": {
-            "type": "boolean",
-            "default": true
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.9
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.9
+          },
+          "translateJitter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.5,
+            "default": 0
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 200
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 360
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 80
+          },
+          "lightnessMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 55
+          },
+          "lightnessMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 65
           }
         }
       },
@@ -532,7 +1177,16 @@
           "seed": 42,
           "params": {
             "ribbons": 50,
-            "width": 3.5
+            "strokeWidth": 3.5,
+            "alpha": 0.8
+          }
+        },
+        {
+          "seed": 24,
+          "params": {
+            "ribbons": 60,
+            "translateJitter": 0.12,
+            "strokeWidth": 2.8
           }
         }
       ]
@@ -620,11 +1274,126 @@
             "maximum": 1,
             "default": 0.4
           },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
+          },
           "rotateJitter": {
             "type": "number",
             "minimum": 0,
             "maximum": 1,
             "default": 0.2
+          },
+          "scaleJitter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0
+          },
+          "center": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "prefixItems": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            ],
+            "default": [
+              0.5,
+              0.5
+            ]
+          },
+          "radiusScale": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 3,
+            "default": 1
+          },
+          "radiusClamp": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 1,
+            "default": 0.45
+          },
+          "radiusMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 0.8
+          },
+          "radiusMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 1.15
+          },
+          "translateJitter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.5,
+            "default": 0
+          },
+          "scaleX": {
+            "type": "number",
+            "minimum": 0.2,
+            "maximum": 3,
+            "default": 1
+          },
+          "scaleY": {
+            "type": "number",
+            "minimum": 0.2,
+            "maximum": 3,
+            "default": 1
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 0
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 360
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 70
+          },
+          "lightnessMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 60
+          },
+          "lightnessMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 60
           },
           "strokeWeightRange": {
             "type": "array",
@@ -657,6 +1426,21 @@
             "recursion": 3,
             "alphaFill": 0.06,
             "alphaStroke": 0.25
+          }
+        },
+        {
+          "seed": 42,
+          "params": {
+            "center": [
+              0.35,
+              0.6
+            ],
+            "radiusScale": 1.3,
+            "radiusClamp": 0.6,
+            "translateJitter": 0.08,
+            "scaleJitter": 0.2,
+            "radiusMin": 0.7,
+            "radiusMax": 1.3
           }
         }
       ]
@@ -1197,6 +1981,11 @@
             "maxLength": 64,
             "default": "#ffffff"
           },
+          "strokeWidth": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 48
+          },
           "stroke": {
             "type": "object",
             "additionalProperties": true,
@@ -1215,11 +2004,149 @@
               }
             }
           },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 1
+          },
           "opacity": {
             "type": "number",
             "minimum": 0,
             "maximum": 1,
             "default": 1
+          },
+          "rings": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 64,
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "scale": {
+                  "type": "number"
+                },
+                "size": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 2,
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "offset": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "rotate": {
+                  "type": "number"
+                },
+                "fill": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "stroke": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "properties": {
+                    "color": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "width": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 48
+                    }
+                  }
+                },
+                "opacity": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          },
+          "ringCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 64,
+            "default": 1
+          },
+          "ringScaleStep": {
+            "type": "number",
+            "minimum": -0.9,
+            "maximum": 0.9,
+            "default": -0.08
+          },
+          "ringOffsetStep": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "prefixItems": [
+              {
+                "type": "number",
+                "minimum": -512,
+                "maximum": 512
+              },
+              {
+                "type": "number",
+                "minimum": -512,
+                "maximum": 512
+              }
+            ],
+            "default": [
+              0,
+              0
+            ]
+          },
+          "ringRotateStep": {
+            "type": "number",
+            "minimum": -3.141592653589793,
+            "maximum": 3.141592653589793,
+            "default": 0
+          },
+          "ringStrokeScale": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 2,
+            "default": 1
+          },
+          "ringOpacityStep": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 1,
+            "default": 0
           }
         }
       },
@@ -1230,6 +2157,20 @@
             "shape": "circle",
             "radius": 220,
             "fill": "#ffffff"
+          }
+        },
+        {
+          "seed": 1,
+          "params": {
+            "shape": "circle",
+            "radius": 220,
+            "fill": "transparent",
+            "stroke": {
+              "color": "#ffffff",
+              "width": 4
+            },
+            "ringCount": 8,
+            "ringScaleStep": -0.1
           }
         }
       ]
@@ -1408,6 +2349,12 @@
             "minLength": 1,
             "default": "#ffffff"
           },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.5
+          },
           "opacity": {
             "type": "number",
             "minimum": 0,
@@ -1419,6 +2366,23 @@
             "minimum": 1,
             "maximum": 24,
             "default": 2
+          },
+          "dotRadiusRange": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "prefixItems": [
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 24
+              },
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 24
+              }
+            ]
           }
         }
       },
@@ -1438,7 +2402,7 @@
             "mode": "crosshatch",
             "spacing": 12,
             "strokeWidth": 1.5,
-            "opacity": 0.35
+            "alpha": 0.35
           }
         }
       ]
@@ -1562,7 +2526,8 @@
       "determinism": "deterministic",
       "defaultSize": 1024,
       "budget": {
-        "maxPixels": 4194304
+        "maxPixels": 4194304,
+        "notes": "Clamps count by canvas size: min(count, max(100, floor(size^2 * 0.0012)))."
       },
       "paramsSchema": {
         "type": "object",
@@ -1605,6 +2570,28 @@
             ],
             "default": "circle"
           },
+          "dotRadius": {
+            "type": "number",
+            "minimum": 0.5,
+            "maximum": 200
+          },
+          "dotRadiusRange": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "prefixItems": [
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 200
+              },
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 200
+              }
+            ]
+          },
           "sizeRange": {
             "type": "array",
             "minItems": 2,
@@ -1639,11 +2626,51 @@
             "maximum": 200,
             "default": 20
           },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.8
+          },
           "opacity": {
             "type": "number",
             "minimum": 0,
             "maximum": 1,
             "default": 0.8
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1
+          },
+          "hueMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 220
+          },
+          "hueMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 720,
+            "default": 310
+          },
+          "sat": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 0
+          },
+          "lightnessMin": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 100
+          },
+          "lightnessMax": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "default": 100
           },
           "fill": {
             "anyOf": [
@@ -1675,6 +2702,11 @@
             "shape": "square",
             "distribution": "poisson",
             "minDistance": 14,
+            "dotRadiusRange": [
+              3,
+              12
+            ],
+            "alpha": 0.75,
             "palette": [
               "#f8f8f8",
               "#6ea8ff",
@@ -1754,6 +2786,12 @@
             "maximum": 1,
             "default": 0
           },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.6
+          },
           "opacity": {
             "type": "number",
             "minimum": 0,
@@ -1773,7 +2811,7 @@
           "params": {
             "angle": 45,
             "spacing": 10,
-            "opacity": 0.45
+            "alpha": 0.45
           }
         },
         {
@@ -1783,6 +2821,391 @@
             "cross": true,
             "spacing": 12,
             "jitter": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "generatorId": "blob_field_v1",
+      "title": "Blob Field v1",
+      "description": "Organic metaball-like blobs for masks and texture layers.",
+      "tags": [
+        "blobs",
+        "mask",
+        "texture",
+        "utility"
+      ],
+      "determinism": "deterministic",
+      "defaultSize": 1024,
+      "budget": {
+        "maxPixels": 4194304
+      },
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "background": {
+            "anyOf": [
+              {
+                "const": "auto"
+              },
+              {
+                "const": "transparent"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "default": "transparent"
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 200,
+            "default": 40
+          },
+          "radiusMin": {
+            "type": "number",
+            "minimum": 0.02,
+            "maximum": 0.6,
+            "default": 0.08
+          },
+          "radiusMax": {
+            "type": "number",
+            "minimum": 0.05,
+            "maximum": 0.9,
+            "default": 0.22
+          },
+          "threshold": {
+            "type": "number",
+            "minimum": 0.1,
+            "maximum": 2.5,
+            "default": 1
+          },
+          "softness": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.25
+          },
+          "jitter": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 0.5,
+            "default": 0.08
+          },
+          "fill": {
+            "type": "string",
+            "minLength": 1,
+            "default": "#ffffff"
+          },
+          "outline": {
+            "anyOf": [
+              {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "color": {
+                    "type": "string",
+                    "minLength": 1,
+                    "default": "rgba(0,0,0,0.2)"
+                  },
+                  "width": {
+                    "type": "number",
+                    "minimum": 0.5,
+                    "maximum": 12,
+                    "default": 1
+                  },
+                  "alpha": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "default": 0.3
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        }
+      },
+      "examples": [
+        {
+          "seed": 4,
+          "params": {
+            "count": 30,
+            "radiusMin": 0.05,
+            "radiusMax": 0.18,
+            "threshold": 1.1,
+            "softness": 0.2,
+            "fill": "#ffffff",
+            "background": "transparent"
+          }
+        }
+      ]
+    },
+    {
+      "generatorId": "stripes_v1",
+      "title": "Stripes v1",
+      "description": "Evenly spaced stripes or bands with optional wave distortion.",
+      "tags": [
+        "stripes",
+        "bands",
+        "mask",
+        "utility"
+      ],
+      "determinism": "deterministic",
+      "defaultSize": 1024,
+      "budget": {
+        "maxPixels": 4194304
+      },
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "background": {
+            "anyOf": [
+              {
+                "const": "auto"
+              },
+              {
+                "const": "transparent"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "default": "transparent"
+          },
+          "palette": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "maxItems": 12
+          },
+          "spacing": {
+            "type": "number",
+            "minimum": 4,
+            "maximum": 200,
+            "default": 18
+          },
+          "width": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 200,
+            "default": 8
+          },
+          "angle": {
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180,
+            "default": 0
+          },
+          "offset": {
+            "type": "number",
+            "minimum": -200,
+            "maximum": 200,
+            "default": 0
+          },
+          "count": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "waveAmp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 200,
+            "default": 0
+          },
+          "waveFreq": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 20,
+            "default": 0
+          },
+          "wavePhase": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 6.283185307179586,
+            "default": 0
+          },
+          "color": {
+            "type": "string",
+            "minLength": 1,
+            "default": "#ffffff"
+          },
+          "alpha": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.8
+          }
+        }
+      },
+      "examples": [
+        {
+          "seed": 2,
+          "params": {
+            "spacing": 22,
+            "width": 10,
+            "angle": 45,
+            "color": "#eaf4ff",
+            "alpha": 0.6
+          }
+        },
+        {
+          "seed": 7,
+          "params": {
+            "spacing": 16,
+            "width": 6,
+            "angle": 0,
+            "waveAmp": 24,
+            "waveFreq": 6,
+            "alpha": 0.7,
+            "palette": [
+              "#0c1b2b",
+              "#2e6cd4",
+              "#eaf4ff"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "generatorId": "cellular_automata_v1",
+      "title": "Cellular Automata v1",
+      "description": "Deterministic 2D cellular automata grid for mask-friendly fills.",
+      "tags": [
+        "cellular",
+        "grid",
+        "mask",
+        "utility"
+      ],
+      "determinism": "deterministic",
+      "defaultSize": 1024,
+      "budget": {
+        "maxPixels": 4194304
+      },
+      "paramsSchema": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "background": {
+            "anyOf": [
+              {
+                "const": "auto"
+              },
+              {
+                "const": "transparent"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "default": "transparent"
+          },
+          "rows": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 240,
+            "default": 60
+          },
+          "cols": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 240,
+            "default": 40
+          },
+          "steps": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 80,
+            "default": 20
+          },
+          "seedDensity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.3
+          },
+          "wrap": {
+            "type": "boolean",
+            "default": false
+          },
+          "birth": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 9,
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8
+            },
+            "default": [
+              3
+            ]
+          },
+          "survive": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 9,
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8
+            },
+            "default": [
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "foreground": {
+            "type": "string",
+            "minLength": 1,
+            "default": "#ffffff"
+          },
+          "invert": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "examples": [
+        {
+          "seed": 42,
+          "params": {
+            "rows": 60,
+            "cols": 12,
+            "steps": 20,
+            "seedDensity": 0.3,
+            "birth": [
+              3
+            ],
+            "survive": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "foreground": "#ffffff",
+            "background": "transparent"
           }
         }
       ]
